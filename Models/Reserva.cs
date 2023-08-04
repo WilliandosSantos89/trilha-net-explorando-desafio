@@ -15,17 +15,20 @@ namespace DesafioProjetoHospedagem.Models
 
         public void CadastrarHospedes(List<Pessoa> hospedes)
         {
-            // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
-            // *IMPLEMENTE AQUI*
-            if (true)
+            
+            if (suite.CapacidadeMaxima < 1 || diasReservados < 1)
             {
-                Hospedes = hospedes;
+                throw new ArgumentException("A quantidade de hóspedes e dias reservados deve ser maio que 0.")
             }
-            else
+
+            if (suite.CapacidadeMaxima < hospedes.QuantidadeHospedes)
             {
-                // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
-                // *IMPLEMENTE AQUI*
+                throw new ArgumentException ("A suíte não pode hospedar a quantidade de hóspedes informada.")
             }
+            
+            Hospede = hospede;
+            Suite = suite;
+            DiasReservados = diasReservados;
         }
 
         public void CadastrarSuite(Suite suite)
@@ -34,27 +37,22 @@ namespace DesafioProjetoHospedagem.Models
         }
 
         public int ObterQuantidadeHospedes()
-        {
-            // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
-            // *IMPLEMENTE AQUI*
-            return 0;
+        {            
+            return Hospede.QuantidadeHospedes;
         }
 
-        public decimal CalcularValorDiaria()
+        
+        public double CalcularValorDiaria()
         {
-            // TODO: Retorna o valor da diária
-            // Cálculo: DiasReservados X Suite.ValorDiaria
-            // *IMPLEMENTE AQUI*
-            decimal valor = 0;
+            double valorDiaria = Suite.ValorDiaria;         
 
-            // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
-            // *IMPLEMENTE AQUI*
-            if (true)
+            
+            if (DiasReservados >= 10)
             {
-                valor = 0;
+                valorDiaria *= 0.9;
             }
 
-            return valor;
+            return valorDiaria * DiasReservados;
         }
     }
 }
